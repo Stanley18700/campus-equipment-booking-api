@@ -1,0 +1,20 @@
+import { DatabaseSync } from 'node:sqlite';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import assert from 'node:assert/strict';
+const db = new DatabaseSync(':memory:');
+db.exec(readFileSync('schema.sql','utf8'));
+const evidence=[];
+function test(name, fn) { fn(); evidence.push({name,passed:true}); console.log('PASS '+name); }
+const insert=db.prepare('INSERT INTO bookings VALUES(?,?,?,?,?,?)');
+const values=['a','eq-1','Student','2099-01-01T09:00:00.000Z','2099-01-01T11:00:00.000Z','Test'];
+test('direct SQL initial insert',()=>insert.run(...values));
+test('database rejects overlapping direct SQL insert',()=>assert.throws(()=>insert.run('b',...values.slice(1)),/BOOKING_CONFLICT/));
+test('database permits adjacency',()=>insert.run('c','eq-1','Student',values[4],'2099-01-01T12:00:00.000Z','Test'));
+test('database rejects overlapping direct SQL update',()=>assert.throws(()=>db.prepare('UPDATE bookings SET startAt=? WHERE id=?').run('2099-01-01T10:00:00.000Z','c'),/BOOKING_CONFLICT/));
+test('database permits same booking update',()=>db.prepare('UPDATE bookings SET purpose=? WHERE id=?').run('Updated','a'));
+test('foreign key rejects nonexistent equipment',()=>assert.throws(()=>insert.run('d','missing',...values.slice(2)),/FOREIGN KEY/));
+test('database rejects reversed interval',()=>assert.throws(()=>insert.run('e','eq-2','Student',values[4],values[3],'Test'),/CHECK/));
+test('database rejects blank borrower',()=>assert.throws(()=>insert.run('f','eq-2',' ',values[3],values[4],'Test'),/CHECK/));
+db.close();
+mkdirSync('evidence',{recursive:true});
+writeFileSync('evidence/database-results.json',JSON.stringify({testedAt:new Date().toISOString(),database:'isolated in-memory SQLite using the submitted schema.sql',cases:evidence},null,2)+'\n');

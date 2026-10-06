@@ -1,0 +1,117 @@
+1. List equipment
+HTTP/1.1 200 OK
+Date: Tue, 06 Oct 2026 07:37:17 GMT
+Content-Type: application/json
+Content-Length: 115
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=MBSPwsVAiNqXoyumYao1Tg9XrFtJVHxNH5iaqpQs1UdErIpm5x%2F8svLFML%2BPAVfYhFvA9V%2FbT3ThKp5H0yAAZ%2B8C9GVzQVD0vJEvtgPNOAlnKWZ7kaU8O36SLwnp9WjMmc0M6r0ELhYP3RhWDvCPYkuBcdf2O4XenLVPnHSQCgBGxElhXMBz"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a462fffb7b400474-HKG
+alt-svc: h3=":443"; ma=86400
+
+[{"id":"eq-1","name":"Projector A","location":"Building 1"},{"id":"eq-2","name":"Camera A","location":"Media Lab"}]
+2. List bookings
+HTTP/1.1 200 OK
+Date: Tue, 06 Oct 2026 07:37:17 GMT
+Content-Type: application/json
+Content-Length: 2
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=bF45d0nkeUAD3TCSNej6VRsDaYcJFkEXDycc0BFLrsIQL6EMFo5O7gAF1hwMCgOJDn5kn5ipAgQ4R0DhxmDUmTUuza%2FuJpZTgTYDWSblJJ8K9KbnRy0omFCqvEBO2JK%2Bs%2FpE%2BXon2dgND5X6pJtvflxmkCJH1wTA1H1btq%2FHqXosJUz0FAIT"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a462fffe4ff4088f-HKG
+alt-svc: h3=":443"; ma=86400
+
+[]
+3. Create booking
+HTTP/1.1 201 Created
+Date: Tue, 06 Oct 2026 07:37:18 GMT
+Content-Type: application/json
+Content-Length: 201
+Connection: keep-alive
+Location: /api/bookings/8aeaefc4-9c54-4874-baba-dfd9cf06384b
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=C3BtgmgQQxmh7NTUHc6tcZqIRXUUlLawJlI8oJR3Z0GCWtvUpJg9HHtFnUE6KibAtlsWAafw8BYA1QeK%2FhcohgzMMBIyRY8rhKOq05espocfaxH7EImYrBDoYO8m6yW%2BueJlKDTgSz%2BqzclX1xHIZWPF7aptG6dwo5vt2%2ByfW2v9aVHn54Sg"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a4630003ff8104c9-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"id":"8aeaefc4-9c54-4874-baba-dfd9cf06384b","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+4. Get one booking
+HTTP/1.1 200 OK
+Date: Tue, 06 Oct 2026 07:37:19 GMT
+Content-Type: application/json
+Content-Length: 201
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=6Ks6TDG97k2%2F%2Bwgr93L6zCoEQWruKrgDP6gJ7SjYC0zVFHQQM2%2BFw4MQ5XAiVtroNsfqAMniQEX6BTET3rUsWBgZE3mzXM1fgSpUYzfkb5VfgM2BC8XeScnMv1yP9tVc5ROIKc2wS9zGFzO1dzocJ36jzEoxWg9L0Ff7cGq9Vs7lqQ6fWQrt"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a4630007bf2a09e8-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"id":"8aeaefc4-9c54-4874-baba-dfd9cf06384b","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+5. Update booking
+HTTP/1.1 200 OK
+Date: Tue, 06 Oct 2026 07:37:20 GMT
+Content-Type: application/json
+Content-Length: 209
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=DWVsvg9YxB2YUedZpOez6cbb2pvSapMaYTvseTHJxqLacD7JSdEcq9PLFNfNAxtJhGze6Fd0ZAmosev667TVQ8D3P83hCLRWrG8dDHgxS4ND2qmmEBBHzgKVsDQfvw%2BFlP44eZUWlQAHQ84wd3MJ%2FBJrgRVUP4LeU0chTE5gxgbXzoLnHwe4"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a463000bcefa64c8-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"id":"8aeaefc4-9c54-4874-baba-dfd9cf06384b","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T12:00:00.000Z","endAt":"2026-10-20T14:00:00.000Z","purpose":"Updated class presentation"}
+6. Invalid time range
+HTTP/1.1 400 Bad Request
+Date: Tue, 06 Oct 2026 07:37:21 GMT
+Content-Type: application/json
+Content-Length: 40
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=QyQ8lS%2FKSRK9hCPQcxBMHkZ8uLE4mUZYMqIFTHPCajpygykKgG3N6GPcVBz7G97FFPK4StFHiIq5bCycC0TQhdjDFCYbJDtLR7eMJHq9oTUto9W%2BWY%2FU0oxst9t5MI17NeJ1A0r7z4wUQ66jcX3%2FbTG3vUsayKWIXUDmwgt5R3lJfB7seTD2"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a4630016d8710ecc-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"error":"startAt must be before endAt"}
+7. Overlapping booking
+HTTP/1.1 409 Conflict
+Date: Tue, 06 Oct 2026 07:37:22 GMT
+Content-Type: application/json
+Content-Length: 56
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=ea%2Bt3tExkNKJp3G6rAALLUc47jo1WUHyiqQJzrmrDAwfniACxBPzw7%2BkVg81OBm6Geizuv7g4nn30pmeNGv3U973gzz3KjS9iFoIPMMa3D9sc2foXL%2BE1ImsoARV70G%2B0MqzCDhKbWiAXPFo6%2FHOKLY0VIa%2BXyFfhc15MrPZRemMsvxsAg9%2B"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a463001d0cdd1fb5-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"error":"Equipment is already booked during that time"}
+8. Missing booking
+HTTP/1.1 404 Not Found
+Date: Tue, 06 Oct 2026 07:37:24 GMT
+Content-Type: application/json
+Content-Length: 29
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=vBazs5Q0nZcieXizIe5hVnxIkLLInwPWtxdRtNADKJZSvDlu%2BHWdQQiT0YRFcsdDbBtE99miF2VnWwZPLeDztfyeID7ZtWQ5SYW6Mg0cXYSOiAN7P8ylmqM8k436DE58hSOpBIKUfFhKPhEnxDvn7DMClHnUIMN0HAMEhppZCA5JBvLIlU6%2B"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a46300265c1de2ed-HKG
+alt-svc: h3=":443"; ma=86400
+
+{"error":"Booking not found"}
+9. Delete booking
+HTTP/1.1 204 No Content
+Date: Tue, 06 Oct 2026 07:37:24 GMT
+Connection: keep-alive
+Report-To: {"group":"cf-nel","max_age":604800,"endpoints":[{"url":"https://a.nel.cloudflare.com/report/v4?s=5HRD9HVus4zMjx7Velpz1QtYKLP2sNx8gEHf04Ygi7HT4zRbuRdqdP%2BrU30gEqZCjCVKJX%2Bvgj0Q%2ByGRIubv04YofSIMQi4Ue5MA7ldOaKMGvA4Djf3tteHKj5bFRkBcg1pHs9ZD3VXNCWQQulOPL61FtZFGokW1thCFZRFqK8H0KW61jvqr"}]}
+Nel: {"report_to":"cf-nel","success_fraction":0.0,"max_age":604800}
+Server: cloudflare
+CF-RAY: a4630028ad6ee2fc-HKG
+alt-svc: h3=":443"; ma=86400
+
+
+SUMMARY: 9/9 cURL guide cases passed.

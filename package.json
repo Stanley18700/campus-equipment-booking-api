@@ -1,0 +1,16 @@
+{
+  "name": "campus-equipment-booking-api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local --ip 127.0.0.1 --port 8787",
+    "db:local": "wrangler d1 execute campus-booking-db --local --file=schema.sql",
+    "db:remote": "wrangler d1 execute campus-booking-db --remote --file=schema.sql",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "test": "node tests/http-tests.mjs"
+  },
+  "dependencies": {"hono": "4.13.4"},
+  "devDependencies": {"@cloudflare/workers-types": "5.20260823.1", "typescript": "5.9.3", "wrangler": "4.125.0"}
+}

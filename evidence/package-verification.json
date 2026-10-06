@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-10-06T06:56:42.4811995Z",
+  "archive": "campus-equipment-booking-submission.zip",
+  "source": "Extracted ZIP",
+  "baseUrl": "http://localhost:8791/api",
+  "typecheck": "Passed, exit 0",
+  "schemaInitialization": "Passed, 8 SQL commands on a fresh local D1 database",
+  "httpPassed": 41,
+  "httpTotal": 41,
+  "directSqlitePassed": 8,
+  "dependencyProvision": "Linked existing installed dependency packages; npm installation on another machine was not tested",
+  "limitation": "Student understanding and pre-30-minute checkpoint cannot be established by this test"
+}

@@ -1,0 +1,18 @@
+{
+  "acquiredAt": "2026-10-06T07:18:05.9771077Z",
+  "source": "Microsoft Teams desktop app: 2026_PlatformDev / 09_Midterm_Exam instructor post",
+  "files": [
+    {
+      "name": "quality_gate.md",
+      "downloadedSha256": "B40C91986F92AF65CA1A63218B2EA42885AF9CF69ECD90458D02EA7A813662B5",
+      "submittedSha256": "B40C91986F92AF65CA1A63218B2EA42885AF9CF69ECD90458D02EA7A813662B5",
+      "unchanged": true
+    },
+    {
+      "name": "curl_test_guide.md",
+      "downloadedSha256": "04C2C3A145C179E4C568F7068A76378C1AD56E032CCAA95DA3A017594DE7B10C",
+      "submittedSha256": "04C2C3A145C179E4C568F7068A76378C1AD56E032CCAA95DA3A017594DE7B10C",
+      "unchanged": true
+    }
+  ]
+}

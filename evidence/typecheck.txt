@@ -1,0 +1,5 @@
+Command: node node_modules/typescript/bin/tsc --noEmit
+Tested at: 2026-10-06T07:14:26.3448408Z
+Exit code: 0
+Executor: AI assistant
+

@@ -1,0 +1,835 @@
+{
+  "testedAt": "2026-10-06T07:13:44.517Z",
+  "baseUrl": "http://localhost:8787/api",
+  "client": "Node.js fetch HTTP client",
+  "passed": 41,
+  "total": 41,
+  "failure": null,
+  "cases": [
+    {
+      "name": "equipment seed",
+      "method": "GET",
+      "url": "http://localhost:8787/api/equipment",
+      "request": null,
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": [
+        {
+          "id": "eq-1",
+          "name": "Projector A",
+          "location": "Building 1"
+        },
+        {
+          "id": "eq-2",
+          "name": "Camera A",
+          "location": "Media Lab"
+        }
+      ],
+      "rawBody": "[{\"id\":\"eq-1\",\"name\":\"Projector A\",\"location\":\"Building 1\"},{\"id\":\"eq-2\",\"name\":\"Camera A\",\"location\":\"Media Lab\"}]",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "create booking",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 201,
+      "actualStatus": 201,
+      "response": {
+        "id": "3ca23f94-b3da-463b-aeb8-33fba7351477",
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"3ca23f94-b3da-463b-aeb8-33fba7351477\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T09:00:00.000Z\",\"endAt\":\"2099-10-20T11:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": "/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "passed": true
+    },
+    {
+      "name": "list includes booking",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings",
+      "request": null,
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": [
+        {
+          "id": "3ca23f94-b3da-463b-aeb8-33fba7351477",
+          "equipmentId": "eq-1",
+          "borrowerName": "HTTP Test Student",
+          "startAt": "2099-10-20T09:00:00.000Z",
+          "endAt": "2099-10-20T11:00:00.000Z",
+          "purpose": "Automated lab test"
+        }
+      ],
+      "rawBody": "[{\"id\":\"3ca23f94-b3da-463b-aeb8-33fba7351477\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T09:00:00.000Z\",\"endAt\":\"2099-10-20T11:00:00.000Z\",\"purpose\":\"Automated lab test\"}]",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "get booking",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": null,
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": {
+        "id": "3ca23f94-b3da-463b-aeb8-33fba7351477",
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"3ca23f94-b3da-463b-aeb8-33fba7351477\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T09:00:00.000Z\",\"endAt\":\"2099-10-20T11:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "create overlap",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T10:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "rawBody": "{\"error\":\"Equipment is already booked during that time\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "contained overlap",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:30:00.000Z",
+        "endAt": "2099-10-20T10:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "rawBody": "{\"error\":\"Equipment is already booked during that time\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "enclosing overlap",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T08:00:00.000Z",
+        "endAt": "2099-10-20T12:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "rawBody": "{\"error\":\"Equipment is already booked during that time\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "adjacent allowed",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T11:00:00.000Z",
+        "endAt": "2099-10-20T12:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 201,
+      "actualStatus": 201,
+      "response": {
+        "id": "2863bc7b-9d18-4250-92fe-0b8357ae9237",
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T11:00:00.000Z",
+        "endAt": "2099-10-20T12:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"2863bc7b-9d18-4250-92fe-0b8357ae9237\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T11:00:00.000Z\",\"endAt\":\"2099-10-20T12:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": "/api/bookings/2863bc7b-9d18-4250-92fe-0b8357ae9237",
+      "passed": true
+    },
+    {
+      "name": "same time different equipment",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-2",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 201,
+      "actualStatus": 201,
+      "response": {
+        "id": "79641f7b-8a79-4f25-b9f4-fc7f7d2ada31",
+        "equipmentId": "eq-2",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"79641f7b-8a79-4f25-b9f4-fc7f7d2ada31\",\"equipmentId\":\"eq-2\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T09:00:00.000Z\",\"endAt\":\"2099-10-20T11:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": "/api/bookings/79641f7b-8a79-4f25-b9f4-fc7f7d2ada31",
+      "passed": true
+    },
+    {
+      "name": "partial update excludes itself",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": {
+        "purpose": "Updated purpose"
+      },
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": {
+        "id": "3ca23f94-b3da-463b-aeb8-33fba7351477",
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Updated purpose"
+      },
+      "rawBody": "{\"id\":\"3ca23f94-b3da-463b-aeb8-33fba7351477\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T09:00:00.000Z\",\"endAt\":\"2099-10-20T11:00:00.000Z\",\"purpose\":\"Updated purpose\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "update overlap",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/2863bc7b-9d18-4250-92fe-0b8357ae9237",
+      "request": {
+        "startAt": "2099-10-20T10:30:00.000Z"
+      },
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "rawBody": "{\"error\":\"Equipment is already booked during that time\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "equipment change conflict",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/79641f7b-8a79-4f25-b9f4-fc7f7d2ada31",
+      "request": {
+        "equipmentId": "eq-1"
+      },
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "rawBody": "{\"error\":\"Equipment is already booked during that time\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "failed update unchanged",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/2863bc7b-9d18-4250-92fe-0b8357ae9237",
+      "request": null,
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": {
+        "id": "2863bc7b-9d18-4250-92fe-0b8357ae9237",
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T11:00:00.000Z",
+        "endAt": "2099-10-20T12:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"2863bc7b-9d18-4250-92fe-0b8357ae9237\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"HTTP Test Student\",\"startAt\":\"2099-10-20T11:00:00.000Z\",\"endAt\":\"2099-10-20T12:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "merged invalid interval",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": {
+        "endAt": "2099-10-20T08:00:00.000Z"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be before endAt"
+      },
+      "rawBody": "{\"error\":\"startAt must be before endAt\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "missing field",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "borrowerName must be a nonblank string"
+      },
+      "rawBody": "{\"error\":\"borrowerName must be a nonblank string\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "blank name",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": " ",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "borrowerName must be a nonblank string"
+      },
+      "rawBody": "{\"error\":\"borrowerName must be a nonblank string\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "unknown equipment",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-missing",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "equipmentId does not exist"
+      },
+      "rawBody": "{\"error\":\"equipmentId does not exist\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "reversed interval",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T11:00:00.000Z",
+        "endAt": "2099-10-20T09:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be before endAt"
+      },
+      "rawBody": "{\"error\":\"startAt must be before endAt\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "equal interval",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T09:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be before endAt"
+      },
+      "rawBody": "{\"error\":\"startAt must be before endAt\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "invalid date",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "tomorrow",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z"
+      },
+      "rawBody": "{\"error\":\"startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "impossible date",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-02-30T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z"
+      },
+      "rawBody": "{\"error\":\"startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "non UTC date",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T16:00:00+07:00",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z"
+      },
+      "rawBody": "{\"error\":\"startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "long name",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "borrowerName must be at most 100 characters"
+      },
+      "rawBody": "{\"error\":\"borrowerName must be at most 100 characters\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "wrong field type",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": 42
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "purpose must be a nonblank string"
+      },
+      "rawBody": "{\"error\":\"purpose must be a nonblank string\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "unknown field",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-20T09:00:00.000Z",
+        "endAt": "2099-10-20T11:00:00.000Z",
+        "purpose": "Automated lab test",
+        "admin": true
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "Unknown booking field"
+      },
+      "rawBody": "{\"error\":\"Unknown booking field\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "null body",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": "null",
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "Body must be a JSON object"
+      },
+      "rawBody": "{\"error\":\"Body must be a JSON object\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "array body",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": [],
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "Body must be a JSON object"
+      },
+      "rawBody": "{\"error\":\"Body must be a JSON object\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "malformed JSON",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": "{\"equipmentId\":",
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "Body must be valid JSON"
+      },
+      "rawBody": "{\"error\":\"Body must be valid JSON\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "empty patch",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": {},
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "Provide booking fields"
+      },
+      "rawBody": "{\"error\":\"Provide booking fields\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "invalid patch timestamp",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": {
+        "startAt": "bad"
+      },
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "response": {
+        "error": "startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z"
+      },
+      "rawBody": "{\"error\":\"startAt must be a real ISO UTC timestamp, e.g. 2026-10-20T09:00:00.000Z\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "get missing",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/missing",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "patch missing",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/missing",
+      "request": {
+        "purpose": "x"
+      },
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "delete missing",
+      "method": "DELETE",
+      "url": "http://localhost:8787/api/bookings/missing",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "unknown route",
+      "method": "GET",
+      "url": "http://localhost:8787/api/unknown",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Route not found"
+      },
+      "rawBody": "{\"error\":\"Route not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "SQL injection ID is data",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/'%20OR%201%3D1%20--",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "SQL-looking name stored as data",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "Robert'); DROP TABLE equipment; --",
+        "startAt": "2099-10-21T09:00:00Z",
+        "endAt": "2099-10-21T11:00:00Z",
+        "purpose": "Automated lab test"
+      },
+      "expectedStatus": 201,
+      "actualStatus": 201,
+      "response": {
+        "id": "b06eebe8-ebad-4582-be94-22badeec6f7d",
+        "equipmentId": "eq-1",
+        "borrowerName": "Robert'); DROP TABLE equipment; --",
+        "startAt": "2099-10-21T09:00:00.000Z",
+        "endAt": "2099-10-21T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "rawBody": "{\"id\":\"b06eebe8-ebad-4582-be94-22badeec6f7d\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"Robert'); DROP TABLE equipment; --\",\"startAt\":\"2099-10-21T09:00:00.000Z\",\"endAt\":\"2099-10-21T11:00:00.000Z\",\"purpose\":\"Automated lab test\"}",
+      "contentType": "application/json",
+      "location": "/api/bookings/b06eebe8-ebad-4582-be94-22badeec6f7d",
+      "passed": true
+    },
+    {
+      "name": "equipment survives injection",
+      "method": "GET",
+      "url": "http://localhost:8787/api/equipment",
+      "request": null,
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "response": [
+        {
+          "id": "eq-1",
+          "name": "Projector A",
+          "location": "Building 1"
+        },
+        {
+          "id": "eq-2",
+          "name": "Camera A",
+          "location": "Media Lab"
+        }
+      ],
+      "rawBody": "[{\"id\":\"eq-1\",\"name\":\"Projector A\",\"location\":\"Building 1\"},{\"id\":\"eq-2\",\"name\":\"Camera A\",\"location\":\"Media Lab\"}]",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "concurrent overlap only one succeeds",
+      "method": "POST x2 concurrently",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "HTTP Test Student",
+        "startAt": "2099-10-22T09:00:00.000Z",
+        "endAt": "2099-10-22T11:00:00.000Z",
+        "purpose": "Automated lab test"
+      },
+      "response": [
+        {
+          "status": 201,
+          "body": {
+            "id": "9b3d8f62-0e4a-4bb2-b04e-bc17895f08fd",
+            "equipmentId": "eq-1",
+            "borrowerName": "HTTP Test Student",
+            "startAt": "2099-10-22T09:00:00.000Z",
+            "endAt": "2099-10-22T11:00:00.000Z",
+            "purpose": "Automated lab test"
+          }
+        },
+        {
+          "status": 409,
+          "body": {
+            "error": "Equipment is already booked during that time"
+          }
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "delete booking",
+      "method": "DELETE",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": null,
+      "expectedStatus": 204,
+      "actualStatus": 204,
+      "response": null,
+      "rawBody": "",
+      "contentType": null,
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "get deleted",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    },
+    {
+      "name": "repeat delete",
+      "method": "DELETE",
+      "url": "http://localhost:8787/api/bookings/3ca23f94-b3da-463b-aeb8-33fba7351477",
+      "request": null,
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "response": {
+        "error": "Booking not found"
+      },
+      "rawBody": "{\"error\":\"Booking not found\"}",
+      "contentType": "application/json",
+      "location": null,
+      "passed": true
+    }
+  ],
+  "cleanup": [
+    {
+      "id": "2863bc7b-9d18-4250-92fe-0b8357ae9237",
+      "status": 204
+    },
+    {
+      "id": "79641f7b-8a79-4f25-b9f4-fc7f7d2ada31",
+      "status": 204
+    },
+    {
+      "id": "b06eebe8-ebad-4582-be94-22badeec6f7d",
+      "status": 204
+    },
+    {
+      "id": "9b3d8f62-0e4a-4bb2-b04e-bc17895f08fd",
+      "status": 204
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "testedAt": "2026-10-06T07:13:44.624Z",
+  "database": "isolated in-memory SQLite using the submitted schema.sql",
+  "cases": [
+    {
+      "name": "direct SQL initial insert",
+      "passed": true
+    },
+    {
+      "name": "database rejects overlapping direct SQL insert",
+      "passed": true
+    },
+    {
+      "name": "database permits adjacency",
+      "passed": true
+    },
+    {
+      "name": "database rejects overlapping direct SQL update",
+      "passed": true
+    },
+    {
+      "name": "database permits same booking update",
+      "passed": true
+    },
+    {
+      "name": "foreign key rejects nonexistent equipment",
+      "passed": true
+    },
+    {
+      "name": "database rejects reversed interval",
+      "passed": true
+    },
+    {
+      "name": "database rejects blank borrower",
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "testedAt": "2026-10-06T07:13:37.549Z",
+  "baseUrl": "http://localhost:8787/api",
+  "client": "Windows curl.exe, spawned as an actual command-line HTTP client",
+  "executor": "AI assistant",
+  "passed": 9,
+  "total": 9,
+  "cases": [
+    {
+      "name": "List equipment",
+      "method": "GET",
+      "url": "http://localhost:8787/api/equipment",
+      "request": null,
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"GET\" \"http://localhost:8787/api/equipment\"",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "rawOutput": "HTTP/1.1 200 OK\r\nContent-Length: 115\r\nContent-Type: application/json\r\n\r\n[{\"id\":\"eq-1\",\"name\":\"Projector A\",\"location\":\"Building 1\"},{\"id\":\"eq-2\",\"name\":\"Camera A\",\"location\":\"Media Lab\"}]",
+      "response": [
+        {
+          "id": "eq-1",
+          "name": "Projector A",
+          "location": "Building 1"
+        },
+        {
+          "id": "eq-2",
+          "name": "Camera A",
+          "location": "Media Lab"
+        }
+      ],
+      "passed": true
+    },
+    {
+      "name": "List bookings",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings",
+      "request": null,
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"GET\" \"http://localhost:8787/api/bookings\"",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "rawOutput": "HTTP/1.1 200 OK\r\nContent-Length: 2\r\nContent-Type: application/json\r\n\r\n[]",
+      "response": [],
+      "passed": true
+    },
+    {
+      "name": "Create booking",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-20T09:00:00.000Z",
+        "endAt": "2026-10-20T11:00:00.000Z",
+        "purpose": "Class presentation"
+      },
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"POST\" \"http://localhost:8787/api/bookings\" \"--header\" \"Content-Type: application/json\" \"--data-binary\" \"@evidence/curl-payloads/3.json\"",
+      "expectedStatus": 201,
+      "actualStatus": 201,
+      "rawOutput": "HTTP/1.1 201 Created\r\nContent-Length: 201\r\nLocation: /api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d\r\nContent-Type: application/json\r\n\r\n{\"id\":\"8205406a-9ddb-4f07-9f5a-1e069064dc2d\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"Somchai Jaidee\",\"startAt\":\"2026-10-20T09:00:00.000Z\",\"endAt\":\"2026-10-20T11:00:00.000Z\",\"purpose\":\"Class presentation\"}",
+      "response": {
+        "id": "8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-20T09:00:00.000Z",
+        "endAt": "2026-10-20T11:00:00.000Z",
+        "purpose": "Class presentation"
+      },
+      "passed": true
+    },
+    {
+      "name": "Get one booking",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+      "request": null,
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"GET\" \"http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d\"",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "rawOutput": "HTTP/1.1 200 OK\r\nContent-Length: 201\r\nContent-Type: application/json\r\n\r\n{\"id\":\"8205406a-9ddb-4f07-9f5a-1e069064dc2d\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"Somchai Jaidee\",\"startAt\":\"2026-10-20T09:00:00.000Z\",\"endAt\":\"2026-10-20T11:00:00.000Z\",\"purpose\":\"Class presentation\"}",
+      "response": {
+        "id": "8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-20T09:00:00.000Z",
+        "endAt": "2026-10-20T11:00:00.000Z",
+        "purpose": "Class presentation"
+      },
+      "passed": true
+    },
+    {
+      "name": "Update booking",
+      "method": "PATCH",
+      "url": "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-20T12:00:00.000Z",
+        "endAt": "2026-10-20T14:00:00.000Z",
+        "purpose": "Updated class presentation"
+      },
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"PATCH\" \"http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d\" \"--header\" \"Content-Type: application/json\" \"--data-binary\" \"@evidence/curl-payloads/5.json\"",
+      "expectedStatus": 200,
+      "actualStatus": 200,
+      "rawOutput": "HTTP/1.1 200 OK\r\nContent-Length: 209\r\nContent-Type: application/json\r\n\r\n{\"id\":\"8205406a-9ddb-4f07-9f5a-1e069064dc2d\",\"equipmentId\":\"eq-1\",\"borrowerName\":\"Somchai Jaidee\",\"startAt\":\"2026-10-20T12:00:00.000Z\",\"endAt\":\"2026-10-20T14:00:00.000Z\",\"purpose\":\"Updated class presentation\"}",
+      "response": {
+        "id": "8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-20T12:00:00.000Z",
+        "endAt": "2026-10-20T14:00:00.000Z",
+        "purpose": "Updated class presentation"
+      },
+      "passed": true
+    },
+    {
+      "name": "Invalid time range",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "Somchai Jaidee",
+        "startAt": "2026-10-21T11:00:00.000Z",
+        "endAt": "2026-10-21T09:00:00.000Z",
+        "purpose": "Invalid time range test"
+      },
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"POST\" \"http://localhost:8787/api/bookings\" \"--header\" \"Content-Type: application/json\" \"--data-binary\" \"@evidence/curl-payloads/6.json\"",
+      "expectedStatus": 400,
+      "actualStatus": 400,
+      "rawOutput": "HTTP/1.1 400 Bad Request\r\nContent-Length: 40\r\nContent-Type: application/json\r\n\r\n{\"error\":\"startAt must be before endAt\"}",
+      "response": {
+        "error": "startAt must be before endAt"
+      },
+      "passed": true
+    },
+    {
+      "name": "Overlapping booking",
+      "method": "POST",
+      "url": "http://localhost:8787/api/bookings",
+      "request": {
+        "equipmentId": "eq-1",
+        "borrowerName": "Suda Dee",
+        "startAt": "2026-10-20T12:30:00.000Z",
+        "endAt": "2026-10-20T13:30:00.000Z",
+        "purpose": "Conflict test"
+      },
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"POST\" \"http://localhost:8787/api/bookings\" \"--header\" \"Content-Type: application/json\" \"--data-binary\" \"@evidence/curl-payloads/7.json\"",
+      "expectedStatus": 409,
+      "actualStatus": 409,
+      "rawOutput": "HTTP/1.1 409 Conflict\r\nContent-Length: 56\r\nContent-Type: application/json\r\n\r\n{\"error\":\"Equipment is already booked during that time\"}",
+      "response": {
+        "error": "Equipment is already booked during that time"
+      },
+      "passed": true
+    },
+    {
+      "name": "Missing booking",
+      "method": "GET",
+      "url": "http://localhost:8787/api/bookings/not-found",
+      "request": null,
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"GET\" \"http://localhost:8787/api/bookings/not-found\"",
+      "expectedStatus": 404,
+      "actualStatus": 404,
+      "rawOutput": "HTTP/1.1 404 Not Found\r\nContent-Length: 29\r\nContent-Type: application/json\r\n\r\n{\"error\":\"Booking not found\"}",
+      "response": {
+        "error": "Booking not found"
+      },
+      "passed": true
+    },
+    {
+      "name": "Delete booking",
+      "method": "DELETE",
+      "url": "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d",
+      "request": null,
+      "command": "curl.exe \"--silent\" \"--show-error\" \"--include\" \"--request\" \"DELETE\" \"http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d\"",
+      "expectedStatus": 204,
+      "actualStatus": 204,
+      "rawOutput": "HTTP/1.1 204 No Content\r\n\r\n",
+      "response": null,
+      "passed": true
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+PASS direct SQL initial insert
+PASS database rejects overlapping direct SQL insert
+PASS database permits adjacency
+PASS database rejects overlapping direct SQL update
+PASS database permits same booking update
+PASS foreign key rejects nonexistent equipment
+PASS database rejects reversed interval
+PASS database rejects blank borrower

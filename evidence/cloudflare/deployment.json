@@ -1,0 +1,13 @@
+{
+  "workerUrl": "https://campus-equipment-booking-api.nyansintzaw.workers.dev",
+  "baseApiUrl": "https://campus-equipment-booking-api.nyansintzaw.workers.dev/api",
+  "versionId": "7fca0079-7ca2-4967-a95b-c18295dff5ca",
+  "d1Database": "campus-booking-db",
+  "d1Id": "e9ad50ac-3da6-4466-89f4-35255b00d70a",
+  "githubOwner": "Stanley18700",
+  "verifiedAt": "2026-10-06T07:37:55.2280766Z",
+  "liveHttpPassed": 41,
+  "liveCurlPassed": 9,
+  "apiSourceSha256": "306426486EBFD0A8E9262A4143E2E49149FE65FB97276B279882E1267657355A",
+  "rootEndpointAddedForDeployment": true
+}

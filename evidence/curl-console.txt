@@ -1,0 +1,86 @@
+INSTRUCTOR cURL QUICK TEST GUIDE — ACTUAL TERMINAL OUTPUT
+Executed by the AI assistant, not a claim of student execution.
+Time (UTC): 2026-10-06T07:13:37.549Z
+Base API URL: http://localhost:8787/api
+
+1. List equipment — EXPECT 200
+$ curl.exe "--silent" "--show-error" "--include" "--request" "GET" "http://localhost:8787/api/equipment"
+HTTP/1.1 200 OK
+Content-Length: 115
+Content-Type: application/json
+
+[{"id":"eq-1","name":"Projector A","location":"Building 1"},{"id":"eq-2","name":"Camera A","location":"Media Lab"}]
+PASS
+
+2. List bookings — EXPECT 200
+$ curl.exe "--silent" "--show-error" "--include" "--request" "GET" "http://localhost:8787/api/bookings"
+HTTP/1.1 200 OK
+Content-Length: 2
+Content-Type: application/json
+
+[]
+PASS
+
+3. Create booking — EXPECT 201
+$ curl.exe "--silent" "--show-error" "--include" "--request" "POST" "http://localhost:8787/api/bookings" "--header" "Content-Type: application/json" "--data-binary" "@evidence/curl-payloads/3.json"
+HTTP/1.1 201 Created
+Content-Length: 201
+Location: /api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d
+Content-Type: application/json
+
+{"id":"8205406a-9ddb-4f07-9f5a-1e069064dc2d","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+PASS
+
+4. Get one booking — EXPECT 200
+$ curl.exe "--silent" "--show-error" "--include" "--request" "GET" "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d"
+HTTP/1.1 200 OK
+Content-Length: 201
+Content-Type: application/json
+
+{"id":"8205406a-9ddb-4f07-9f5a-1e069064dc2d","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T09:00:00.000Z","endAt":"2026-10-20T11:00:00.000Z","purpose":"Class presentation"}
+PASS
+
+5. Update booking — EXPECT 200
+$ curl.exe "--silent" "--show-error" "--include" "--request" "PATCH" "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d" "--header" "Content-Type: application/json" "--data-binary" "@evidence/curl-payloads/5.json"
+HTTP/1.1 200 OK
+Content-Length: 209
+Content-Type: application/json
+
+{"id":"8205406a-9ddb-4f07-9f5a-1e069064dc2d","equipmentId":"eq-1","borrowerName":"Somchai Jaidee","startAt":"2026-10-20T12:00:00.000Z","endAt":"2026-10-20T14:00:00.000Z","purpose":"Updated class presentation"}
+PASS
+
+6. Invalid time range — EXPECT 400
+$ curl.exe "--silent" "--show-error" "--include" "--request" "POST" "http://localhost:8787/api/bookings" "--header" "Content-Type: application/json" "--data-binary" "@evidence/curl-payloads/6.json"
+HTTP/1.1 400 Bad Request
+Content-Length: 40
+Content-Type: application/json
+
+{"error":"startAt must be before endAt"}
+PASS
+
+7. Overlapping booking — EXPECT 409
+$ curl.exe "--silent" "--show-error" "--include" "--request" "POST" "http://localhost:8787/api/bookings" "--header" "Content-Type: application/json" "--data-binary" "@evidence/curl-payloads/7.json"
+HTTP/1.1 409 Conflict
+Content-Length: 56
+Content-Type: application/json
+
+{"error":"Equipment is already booked during that time"}
+PASS
+
+8. Missing booking — EXPECT 404
+$ curl.exe "--silent" "--show-error" "--include" "--request" "GET" "http://localhost:8787/api/bookings/not-found"
+HTTP/1.1 404 Not Found
+Content-Length: 29
+Content-Type: application/json
+
+{"error":"Booking not found"}
+PASS
+
+9. Delete booking — EXPECT 204
+$ curl.exe "--silent" "--show-error" "--include" "--request" "DELETE" "http://localhost:8787/api/bookings/8205406a-9ddb-4f07-9f5a-1e069064dc2d"
+HTTP/1.1 204 No Content
+
+
+PASS
+
+SUMMARY: 9/9 cURL guide cases passed.

@@ -1,0 +1,12 @@
+{
+	"name": "campus-equipment-booking-api",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-08-01",
+	"d1_databases": [
+		{
+			"binding": "DB",
+			"database_name": "campus-booking-db",
+			"database_id": "e9ad50ac-3da6-4466-89f4-35255b00d70a"
+		}
+	]
+}
